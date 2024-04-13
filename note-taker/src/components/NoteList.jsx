@@ -1,20 +1,27 @@
-// NoteList.js
+// NoteList.jsx
 import React from 'react';
-import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Link } from 'react-router-dom';
+import NoteCard from './NoteCard';
 
 const NoteList = ({ notes, onDelete, onArchive }) => {
   return (
-    <div>
-      <h2>Notes</h2>
-      {notes.map((note) => (
-        <div key={note.id}>
-          <h3>{note.title}</h3>
-          <p>{note.content}</p>
-          <button onClick={() => onDelete(note.id)}>Delete</button>
-          <button onClick={() => onArchive(note.id)}>Archive</button>
-        </div>
-      ))}
-      <Link to="/add">Add Note</Link> {/* Link to the note creation page */}
+    <div className="note-list-container">
+      <div className="note-list-header">
+        <h2>Notes</h2>
+        <Link to="/add" className="btn btn-primary">
+          Add Note
+        </Link>
+      </div>
+      <div className="note-list">
+        {notes.map((note) => (
+          <NoteCard
+            key={note.id}
+            note={note}
+            onDelete={onDelete}
+            onArchive={onArchive}
+          />
+        ))}
+      </div>
     </div>
   );
 };
