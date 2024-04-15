@@ -21,7 +21,7 @@ const App = () => {
     setNotes(notes.filter((note) => note.id !== id));
   };
 
-  const editNote = (updatedNote) => {
+  const updateNote = (updatedNote) => {
     setNotes(
       notes.map((note) => (note.id === updatedNote.id ? updatedNote : note))
     );
@@ -70,14 +70,20 @@ const App = () => {
           </div>
         </div>
         <Routes>
+          <Route
+            path="/edit/:id"
+            element={
+              <NoteEdit
+                notes={notes}
+                onNoteUpdate={updateNote}
+                onNoteDelete={deleteNote}
+              />
+            }
+          />
           <Route path="/add" element={<NoteForm onSave={addNote} />} />
           <Route
             path="/archive"
-            element={<NoteArchive notes={notes} onArchive={editNote} />}
-          />
-          <Route
-            path="/edit/:id"
-            element={<NoteEdit notes={notes} onSave={editNote} />}
+            element={<NoteArchive notes={notes} onArchive={updateNote} />}
           />
         </Routes>
       </div>
